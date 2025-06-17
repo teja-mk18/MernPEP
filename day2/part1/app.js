@@ -23,12 +23,28 @@ const calculateBillAmountForDrinks = (price) => {
 // Higher order function -> a function that takes other functions as arguments or returns a function
 // Callback function -> a function that is passed as an argument to another function and is executed later
 
-const genarateBill = (food, clothes,drinks) => {
+// const genarateBill = (food, clothes,drinks) => {
+//     const foodAmount = calculateBillAmountForFood(food);
+//     const clothesAmount = calculateBillAmountForClothes(clothes);
+//     const drinksAmount = calculateBillAmountForDrinks(drinks);
+//     const totalAmount = foodAmount + clothesAmount + drinksAmount;
+//     printBill(totalAmount);
+// };
+
+// genarateBill(100, 400, 100);
+
+const generateBill = (food, clothes, drinks, func) => {
+    // HoF
     const foodAmount = calculateBillAmountForFood(food);
     const clothesAmount = calculateBillAmountForClothes(clothes);
     const drinksAmount = calculateBillAmountForDrinks(drinks);
-    const totalAmount = foodAmount + clothesAmount + drinksAmount;
-    printBill(totalAmount);
+
+    const finalAmount = foodAmount + clothesAmount + drinksAmount;
+    func(finalAmount);
 };
 
-genarateBill(100, 400, 100);
+const foodPrice = 100;
+generateBill(foodPrice, 400, 100, printBillForAll); // printBillForAll is a callback
+
+generateBill(100, 400, 0, printBillForFoodAndDrinks); // printBillForFoodAndDrinks is a callback
+generateBill(200, 0, 0, printBillForFood); // printBillForFood is a callback
